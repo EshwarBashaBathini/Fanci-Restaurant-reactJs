@@ -314,7 +314,7 @@ const Home = () => {
   }
 
   const decrement = itemData => {
-    let alreadyExit = cartList.find(item => item.id === itemData.id)
+    const alreadyExit = cartList.find(item => item.id === itemData.id)
     if (!alreadyExit) {
       setcartList(prevcartList =>
         prevcartList
