@@ -21,7 +21,6 @@ function FoodItem(props) {
     customizations_available,
     description,
     image_url,
-    quantity,
     name,
     price,
   } = itemData
