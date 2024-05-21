@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import Head from '../Head'
 import CategoryItem from '../CategoryItem'
 import FoodItem from '../FoodItem'
@@ -286,8 +286,8 @@ const menu = {
 }
 
 function Home() {
-  const [categoriesData, setCategoryData] = useState(menu.categories)
-  const [itemsData, setItemsData] = useState(menu.items)
+  const [categoriesData] = useState(menu.categories)
+  const [itemsData] = useState(menu.items)
   const [categoryId, setCategoryId] = useState(categoriesData[0])
   const [cartList, setcartList] = useState([])
 
