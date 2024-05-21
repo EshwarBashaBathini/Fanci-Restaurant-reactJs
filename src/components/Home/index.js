@@ -4,7 +4,7 @@ import CategoryItem from '../CategoryItem'
 import FoodItem from '../FoodItem'
 import {Unorder, ItemUnorder} from './styledComponent'
 
-let menu = {
+const menu = {
   categories: [
     'Salads and Soup',
     'From The Barnyard',
@@ -285,7 +285,7 @@ let menu = {
   ],
 }
 
-const Home = () => {
+function Home() {
   const [categoriesData, setCategoryData] = useState(menu.categories)
   const [itemsData, setItemsData] = useState(menu.items)
   const [categoryId, setCategoryId] = useState(categoriesData[0])
@@ -298,7 +298,7 @@ const Home = () => {
   }
 
   const increment = itemData => {
-    let alreadyExit = cartList.find(item => item.id === itemData.id)
+    const alreadyExit = cartList.find(item => item.id === itemData.id)
     if (!alreadyExit) {
       const newDish = {...itemData, quantity: 1}
       setcartList(prevcartList => [...prevcartList, newDish])

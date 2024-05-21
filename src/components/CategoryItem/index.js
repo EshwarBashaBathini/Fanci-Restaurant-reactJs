@@ -1,6 +1,6 @@
 import {ListItem, P} from './styledComponent'
 
-const CategoryItem = props => {
+function CategoryItem(props) {
   const {itemData, isActive, setId} = props
 
   const onChangeCategory = () => {

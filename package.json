@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "pnpm install --no-frozen-lockfile && pnpm run build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint .",
     "lint:fix": "eslint --fix src/",

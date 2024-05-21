@@ -12,7 +12,7 @@ import {
   Img,
 } from './styledComponent'
 
-const FoodItem = props => {
+function FoodItem(props) {
   const {itemData, decrement, cartList, increment} = props
   const {
     id,
@@ -56,7 +56,7 @@ const FoodItem = props => {
         )}
       </Div>
       <Calories>{calories} Calories</Calories>
-      <Img src={image_url} alt={name}></Img>
+      <Img src={image_url} alt={name} />
     </ListItem>
   )
 }

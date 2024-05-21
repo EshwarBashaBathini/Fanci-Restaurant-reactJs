@@ -1,3 +1,4 @@
+import {FiShoppingCart} from 'react-icons/fi'
 import {
   NavContainer,
   H1,
@@ -7,13 +8,12 @@ import {
   MyOrder,
   P,
 } from './styledComponent'
-import {FiShoppingCart} from 'react-icons/fi'
 
-const Head = props => {
+function Head(props) {
   const {list} = props
 
   const getCartItemsCounter = () => {
-    let len = list.reduce((acc, item) => acc + item.quantity, 0)
+    const len = list.reduce((acc, item) => acc + item.quantity, 0)
     return len
   }
   return (
