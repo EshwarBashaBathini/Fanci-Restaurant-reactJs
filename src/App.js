@@ -1,5 +1,8 @@
 import './App.css'
 import Home from './components/Home'
-const App = () => <Home />
+
+function App() {
+  return <Home />
+}
 
 export default App
