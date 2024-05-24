@@ -1,30 +1,18 @@
-import {
-  ListItem,
-  H1,
-  P,
-  Pdescr,
-  ButtonsContainer,
-  Button,
-  NotAvaiable,
-  Customization,
-  Calories,
-  Div,
-  Img,
-} from './styledComponent'
+import './index.css'
 
 function FoodItem(props) {
   const {itemData, decrement, cartList, increment} = props
   const {
-    id,
-    availability,
-    calories,
-    customizations_available,
-    description,
-    image_url,
-    name,
-    price,
+    dishId,
+    dishAvailability,
+    dishCalories,
+    dishType,
+    dishDescription,
+    dishImage,
+    dishName,
+    dishPrice,
+    dishCurrency,
   } = itemData
-
   const onDecrement = () => {
     decrement(itemData)
   }
@@ -32,31 +20,35 @@ function FoodItem(props) {
     increment(itemData)
   }
   const getQuantity = () => {
-    const cartitem = cartList.find(item => item.id === id)
+    const cartitem = cartList.find(item => item.dishId === dishId)
     return cartitem ? cartitem.quantity : 0
   }
   return (
-    <ListItem>
-      <Div>
-        <H1>{name}</H1>
-        <P>SAR {price}</P>
-        <Pdescr>{description}</Pdescr>
-        {availability ? (
-          <ButtonsContainer>
-            <Button onClick={onDecrement}>-</Button>
+    <li className="list-item">
+      <div className="div1">
+        <h1 className="h11">{dishName}</h1>
+        <p className="p1">{`${dishCurrency} ${dishPrice}`}</p>
+        <p className="pdescr">{dishDescription}</p>
+        {dishAvailability ? (
+          <div className="button-container">
+            <button type="button" disabled={getQuantity() === 0 } className="button" onClick={onDecrement}>
+              -
+            </button>
             <span>{getQuantity()}</span>
-            <Button onClick={onIncrement}>+</Button>
-          </ButtonsContainer>
+            <button type="button" className="button" onClick={onIncrement}>
+              +
+            </button>
+          </div>
         ) : (
-          <NotAvaiable>Not Available</NotAvaiable>
+          <p className="not-available">Not Available</p>
         )}
-        {customizations_available && (
-          <Customization>Customizations available</Customization>
+        {dishType > 1 && (
+          <p className="custimation">Customizations available</p>
         )}
-      </Div>
-      <Calories>{calories} Calories</Calories>
-      <Img src={image_url} alt={name} />
-    </ListItem>
+      </div>
+      <p className="calories">{dishCalories} calories</p>
+      <img className="img" src={dishImage} alt={dishName} />
+    </li>
   )
 }
 

@@ -1,34 +1,25 @@
 import {FiShoppingCart} from 'react-icons/fi'
-import {
-  NavContainer,
-  H1,
-  Div,
-  DivContainer,
-  DivContainer2,
-  MyOrder,
-  P,
-} from './styledComponent'
+import './index.css'
 
-function Head(props) {
-  const {list} = props
+const Head = props => {
+  const {list, details, isLoader} = props
 
-  const getCartItemsCounter = () => {
-    const len = list.reduce((acc, item) => acc + item.quantity, 0)
-    return len
-  }
+  const getCartItemsCounter = () => 
+   list.reduce((acc, item) => acc + item.quantity, 0)
+    
   return (
-    <NavContainer>
-      <H1>UNI Resto Cafe</H1>
-      <Div>
-        <MyOrder>My Order</MyOrder>
-        <DivContainer>
+    <nav className="nav-container">
+      <h1 className="h1">{details.restaurantName}</h1>
+      <div className="div">
+        {!isLoader && <p className="myorder">My Orders</p>}
+        <div className="div-container">
           <FiShoppingCart color="#6e6565" size={40} />
-          <DivContainer2>
-            <P>{getCartItemsCounter()}</P>
-          </DivContainer2>
-        </DivContainer>
-      </Div>
-    </NavContainer>
+          <div className="div-container2">
+            <p className="p">{getCartItemsCounter()}</p>
+          </div>
+        </div>
+      </div>
+    </nav>
   )
 }
 

@@ -1,0 +1,26 @@
+.list-item2 {
+  font-size: 10px;
+
+  min-width: 100px;
+  list-style-type: none;
+  padding: 10px;
+}
+
+
+.name-color1 {
+  color: #f57373;
+  font-size: 20px;
+  text-decoration: underline;
+  text-decoration-color: #f57373;
+}
+.name-color2 {
+  text-decoration-color: none;
+  color: black;
+  font-size: 15px;
+}
+.button1 {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}

@@ -1,17 +1,20 @@
-import {ListItem, P} from './styledComponent'
+import './index.css'
 
-function CategoryItem(props) {
-  const {itemData, isActive, setId} = props
-
+const CategoryItem = props => {
+  const {itemData, categorId, setId} = props
+  const {categoryId, categoryName} = itemData
   const onChangeCategory = () => {
-    setId(itemData)
+    setId(categoryId)
   }
+  const value = categoryId === categorId ? 'name-color1' : 'name-color2'
+  console.log(value)
 
   return (
-    <ListItem isActive={isActive} onClick={onChangeCategory}>
-      <P isActive={isActive}>{itemData}</P>
-    </ListItem>
+    <li className="list-item2" onClick={onChangeCategory}>
+      <button type="button" className="button1">
+        <h4 className={`${value}`}>{categoryName}</h4>
+      </button>
+    </li>
   )
 }
-
 export default CategoryItem
