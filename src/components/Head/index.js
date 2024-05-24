@@ -4,9 +4,9 @@ import './index.css'
 const Head = props => {
   const {list, details, isLoader} = props
 
-  const getCartItemsCounter = () => 
-   list.reduce((acc, item) => acc + item.quantity, 0)
-    
+  const getCartItemsCounter = () =>
+    list.reduce((acc, item) => acc + item.quantity, 0)
+
   return (
     <nav className="nav-container">
       <h1 className="h1">{details.restaurantName}</h1>

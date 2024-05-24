@@ -31,7 +31,12 @@ function FoodItem(props) {
         <p className="pdescr">{dishDescription}</p>
         {dishAvailability ? (
           <div className="button-container">
-            <button type="button" disabled={getQuantity() === 0 } className="button" onClick={onDecrement}>
+            <button
+              type="button"
+              disabled={getQuantity() === 0}
+              className="button"
+              onClick={onDecrement}
+            >
               -
             </button>
             <span>{getQuantity()}</span>
