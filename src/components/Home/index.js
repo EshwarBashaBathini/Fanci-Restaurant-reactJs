@@ -14,8 +14,6 @@ function Home() {
   const filterData = categoriesData.filter(
     item => item.categoryId === categorId,
   )
-  console.log(cartList)
-
   const setIdChange = itemData => {
     setCategoryId(itemData)
   }
