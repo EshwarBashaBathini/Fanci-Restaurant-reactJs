@@ -18,17 +18,31 @@ function Home() {
     setCategoryId(itemData)
   }
 
-  const increment = itemData => {
-    const alreadyExists = cartList.find(item => item.dishId === itemData.dishId)
+  const increment = dishId => {
+    setCategoriesData(prevCategoryList =>
+      prevCategoryList.map(category => ({
+        ...category,
+        foodItems: category.foodItems.map(item =>
+          item.dishId === dishId
+            ? {...item, quantity: item.quantity + 1}
+            : item,
+        ),
+      })),
+    )
+  }
+
+  const addCartIt = product => {
+    const alreadyExists = cartList.find(item => item.dishId === product.dishId)
 
     if (!alreadyExists) {
-      const newDish = {...itemData, quantity: 1}
-      setCartList(prevCartList => [...prevCartList, newDish])
+      const newDish = [...cartList, product]
+      console.log(newDish)
+      setCartList(newDish)
     } else {
       setCartList(prevCartList =>
         prevCartList.map(item =>
-          item.dishId === itemData.dishId
-            ? {...item, quantity: item.quantity + 1}
+          item.dishId === product.dishId
+            ? {...item, quantity: product.quantity}
             : item,
         ),
       )
@@ -76,20 +90,17 @@ function Home() {
     fetchData()
   }, [])
 
-  const decrement = itemData => {
-    const alreadyExists = cartList.find(item => item.dishId === itemData.dishId)
-
-    if (alreadyExists) {
-      setCartList(prevCartList =>
-        prevCartList
-          .map(item =>
-            item.dishId === itemData.dishId
-              ? {...item, quantity: item.quantity - 1}
-              : item,
-          )
-          .filter(item => item.quantity > 0),
-      )
-    }
+  const decrement = dishId => {
+    setCategoriesData(prevCategoryList =>
+      prevCategoryList.map(category => ({
+        ...category,
+        foodItems: category.foodItems.map(item =>
+          item.dishId === dishId
+            ? {...item, quantity: item.quantity - 1}
+            : item,
+        ),
+      })),
+    )
   }
 
   return (
@@ -115,6 +126,7 @@ function Home() {
                 increment={increment}
                 decrement={decrement}
                 itemData={item}
+                addCartIt={addCartIt}
               />
             ))}
           </ul>

@@ -23,7 +23,9 @@ const Head = props => {
         {!isLoader && <p className="myorder">My Orders</p>}
         <div className="div-container">
           <Link to="/cart">
-            <FiShoppingCart color="#6e6565" size={40} />
+            <button type="button" className="btn-cart">
+              <FiShoppingCart color="#6e6565" size={40} />
+            </button>
             <div className="div-container2">
               <p className="p">{getCartItemsCounter()}</p>
             </div>

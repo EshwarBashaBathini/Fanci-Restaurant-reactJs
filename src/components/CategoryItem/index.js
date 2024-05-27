@@ -7,7 +7,6 @@ const CategoryItem = props => {
     setId(categoryId)
   }
   const value = categoryId === categorId ? 'name-color1' : 'name-color2'
-  console.log(value)
 
   return (
     <li className="list-item2" onClick={onChangeCategory}>

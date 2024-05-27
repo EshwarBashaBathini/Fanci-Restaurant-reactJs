@@ -14,13 +14,14 @@ const App = () => {
     const alreadyExists = cartList.find(item => item.dishId === product.dishId)
 
     if (!alreadyExists) {
-      const newDish = {...product, quantity: 1}
-      setCartList(prevCartList => [...prevCartList, newDish])
+      const newDish = [...cartList, product]
+      console.log(newDish)
+      setCartList(newDish)
     } else {
       setCartList(prevCartList =>
         prevCartList.map(item =>
           item.dishId === product.dishId
-            ? {...item, quantity: item.quantity + 1}
+            ? {...item, quantity: product.quantity}
             : item,
         ),
       )

@@ -4,13 +4,8 @@ const FoodItem = props => {
   return (
     <CartContext.Consumer>
       {value => {
-        const {
-          addCartItem,
-          cartList,
-          incrementCartItemQuantity,
-          decrementCartItemQuantity,
-        } = value
-        const {itemData, decrement, increment} = props
+        const {addCartItem} = value
+        const {itemData, decrement, increment, addCartIt} = props
         const {
           dishId,
           dishAvailability,
@@ -19,24 +14,19 @@ const FoodItem = props => {
           dishDescription,
           dishImage,
           dishName,
+          quantity,
           dishPrice,
           dishCurrency,
         } = itemData
         const onDecrement = () => {
-          decrementCartItemQuantity(itemData)
-          decrement(itemData)
+          decrement(dishId)
         }
         const onIncrement = () => {
-          incrementCartItemQuantity(itemData)
-          increment(itemData)
-        }
-        const getQuantity = () => {
-          const cartitem = cartList.find(item => item.dishId === dishId)
-          return cartitem ? cartitem.quantity : 0
+          increment(dishId)
         }
         const onClickAddToCart = () => {
           addCartItem(itemData)
-          increment(itemData)
+          addCartIt(itemData)
         }
         return (
           <li className="list-item">
@@ -49,13 +39,13 @@ const FoodItem = props => {
                   <div className="button-container">
                     <button
                       type="button"
-                      disabled={getQuantity() === 0}
+                      disabled={quantity === 0}
                       className="button"
                       onClick={onDecrement}
                     >
                       -
                     </button>
-                    <span>{getQuantity()}</span>
+                    <p>{quantity}</p>
                     <button
                       type="button"
                       className="button"
@@ -64,13 +54,15 @@ const FoodItem = props => {
                       +
                     </button>
                   </div>
-                  <button
-                    type="button"
-                    className="button2 add-to-cart-btn"
-                    onClick={onClickAddToCart}
-                  >
-                    ADD TO CART
-                  </button>
+                  {quantity > 0 && (
+                    <button
+                      type="button"
+                      className="button2 add-to-cart-btn"
+                      onClick={onClickAddToCart}
+                    >
+                      ADD TO CART
+                    </button>
+                  )}
                 </div>
               ) : (
                 <p className="not-available">Not Available</p>
