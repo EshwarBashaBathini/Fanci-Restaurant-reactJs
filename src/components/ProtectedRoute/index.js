@@ -1,10 +1,17 @@
-import {Navigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import Cookies from 'js-cookie'
+import {useEffect} from 'react'
 
 const ProtectedRoute = ({element: Element}) => {
   const jwtToken = Cookies.get('jwt_token')
   
-  if(!jwtToken) navigate('/login')
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!jwtToken) {
+      navigate("/login");
+    }
+  }, [jwtToken]);
   
   return <Element /> 
 }
