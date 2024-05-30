@@ -65,7 +65,7 @@ const FoodItem = props => {
                   )}
                 </div>
               ) : (
-                <p className="not-available">Not Available</p>
+                <p className="not-available">Not available</p>
               )}
               {dishType > 1 && (
                 <p className="custimation">Customizations available</p>

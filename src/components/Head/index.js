@@ -2,7 +2,6 @@ import Cookies from 'js-cookie'
 import {useNavigate, Link} from 'react-router-dom'
 import {FiShoppingCart} from 'react-icons/fi'
 import './index.css'
-
 const Head = props => {
   const {list, details, isLoader} = props
   const navigation = useNavigate()
@@ -11,8 +10,7 @@ const Head = props => {
     navigation('/login')
   }
 
-  const getCartItemsCounter = () =>
-    list.reduce((acc, item) => acc + item.quantity, 0)
+  const getCartItemsCounter = () => <p className="p">{list.length}</p>
 
   return (
     <nav className="nav-container">
@@ -26,9 +24,7 @@ const Head = props => {
             <button type="button" className="btn-cart">
               <FiShoppingCart color="#6e6565" size={40} />
             </button>
-            <div className="div-container2">
-              <p className="p">{getCartItemsCounter()}</p>
-            </div>
+            <div className="div-container2">{getCartItemsCounter()}</div>
           </Link>
         </div>
         <button
