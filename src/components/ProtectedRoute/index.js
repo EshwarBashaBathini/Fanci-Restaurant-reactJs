@@ -3,7 +3,10 @@ import Cookies from 'js-cookie'
 
 const ProtectedRoute = ({element: Element}) => {
   const jwtToken = Cookies.get('jwt_token')
-  return jwtToken ? <Element /> : <Navigate to="/login" />
+  
+  if(!jwtToken) navigate('/login')
+  
+  return <Element /> 
 }
 
 export default ProtectedRoute
