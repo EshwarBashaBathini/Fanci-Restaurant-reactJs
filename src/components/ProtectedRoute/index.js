@@ -4,16 +4,14 @@ import {useEffect} from 'react'
 
 const ProtectedRoute = ({element: Element}) => {
   const jwtToken = Cookies.get('jwt_token')
-  
-  const navigate = useNavigate();
-
+  const navigate = useNavigate()
   useEffect(() => {
     if (!jwtToken) {
-      navigate("/login");
+      navigate('/login')
     }
-  }, [jwtToken]);
-  
-  return <Element /> 
+  }, [jwtToken, navigate])
+
+  return <Element />
 }
 
 export default ProtectedRoute
