@@ -1,17 +1,15 @@
-import {useNavigate} from 'react-router-dom'
+/* eslint-disable import/no-extraneous-dependencies */
 import Cookies from 'js-cookie'
-import {useEffect} from 'react'
+import {Redirect, Route} from 'react-router-dom'
 
-const ProtectedRoute = ({element: Element}) => {
+const ProtectedRoute = props => {
   const jwtToken = Cookies.get('jwt_token')
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (!jwtToken) {
-      navigate('/login')
-    }
-  }, [jwtToken, navigate])
 
-  return <Element />
+  if (!jwtToken) {
+    return <Redirect to="/login" />
+  }
+
+  return <Route {...props} />
 }
 
 export default ProtectedRoute

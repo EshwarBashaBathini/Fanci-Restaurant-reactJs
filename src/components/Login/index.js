@@ -1,110 +1,78 @@
-import {useState, useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
+/* eslint-disable import/no-extraneous-dependencies */
+import {useState} from 'react'
 import Cookies from 'js-cookie'
+import {Redirect} from 'react-router-dom'
 
 import './index.css'
 
-const Login = () => {
+const Login = props => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [showSubmitError, setSubmmitError] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
-  const navigation = useNavigate()
 
-  const onChangeUsername = event => {
-    setUsername(event.target.value)
+  const onChangeHandler = event => {
+    const {id, value} = event.target
+    if (id === 'username') {
+      setUsername(value)
+    } else {
+      setPassword(value)
+    }
   }
 
-  const onChangePassword = event => {
-    setPassword(event.target.value)
+  const onSuccessfulLogin = jwtToken => {
+    const {history} = props
+    Cookies.set('jwt_token', jwtToken, {expires: 1})
+    history.replace('/')
   }
 
-  const onSubmitSuccess = jwtToken => {
-    Cookies.set('jwt_token', jwtToken, {
-      expires: 30,
-    })
-    navigation('/')
+  const onFailedLogin = errorMessage => {
+    setErrorMsg(errorMessage)
   }
 
-  const onSubmitFailure = errorMsg => {
-    setErrorMsg(errorMsg)
-    setSubmmitError(true)
-  }
-
-  const submitForm = async event => {
+  const onSubmitLogin = async event => {
     event.preventDefault()
-    setSubmmitError(false)
-
     const userDetails = {username, password}
-    const url = 'https://apis.ccbp.in/login'
+    const api = 'https://apis.ccbp.in/login'
     const options = {
       method: 'POST',
       body: JSON.stringify(userDetails),
     }
-    const response = await fetch(url, options)
+
+    const response = await fetch(api, options)
     const data = await response.json()
-    setPassword('')
-    setUsername('')
-    if (response.ok === true) {
-      onSubmitSuccess(data.jwt_token)
+    if (response.ok) {
+      onSuccessfulLogin(data.jwt_token)
     } else {
-      onSubmitFailure(data.error_msg)
+      onFailedLogin(data.error_msg)
     }
   }
 
-  const renderPasswordField = () => {
-    return (
-      <>
-        <label className="input-label" htmlFor="password">
-          PASSWORD
-        </label>
-        <input
-          type="password"
-          id="password"
-          className="password-input-field"
-          value={password}
-          onChange={onChangePassword}
-          placeholder="Password"
-        />
-      </>
-    )
+  if (Cookies.get('jwt_token')) {
+    return <Redirect to="/" />
   }
-
-  const renderUsernameField = () => {
-    return (
-      <>
-        <label className="input-label" htmlFor="username">
-          USERNAME
-        </label>
-        <input
-          type="text"
-          id="username"
-          className="username-input-field"
-          value={username}
-          onChange={onChangeUsername}
-          placeholder="Username"
-        />
-      </>
-    )
-  }
-
-  useEffect(() => {
-    const jwtToken = Cookies.get('jwt_token')
-
-    if (jwtToken !== undefined) {
-      navigation('/')
-    }
-  })
 
   return (
-    <div className="login-form-container">
-      <form className="form-container" onSubmit={submitForm}>
-        <div className="input-container">{renderUsernameField()}</div>
-        <div className="input-container">{renderPasswordField()}</div>
+    <div className="login-bg">
+      <form onSubmit={onSubmitLogin} className="login-form">
+        <h1 className="login-heading">Login</h1>
+        <label htmlFor="username">USERNAME</label>
+        <input
+          id="username"
+          type="text"
+          onChange={onChangeHandler}
+          value={username}
+        />
+        <label htmlFor="password">PASSWORD</label>
+        <input
+          id="password"
+          type="password"
+          onChange={onChangeHandler}
+          value={password}
+        />
         <button type="submit" className="login-button">
           Login
         </button>
-        {showSubmitError && <p className="error-message">{errorMsg}</p>}
+        {errorMsg !== '' && <p className="text-danger">{errorMsg}</p>}
       </form>
     </div>
   )
