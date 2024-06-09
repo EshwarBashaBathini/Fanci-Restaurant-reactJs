@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import {useState} from 'react'
 import Cookies from 'js-cookie'
-import {Redirect} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 import './index.css'
 
@@ -9,7 +9,7 @@ const Login = props => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
-
+  const navigation = useNavigate()
   const onChangeHandler = event => {
     const {id, value} = event.target
     if (id === 'username') {
@@ -20,9 +20,8 @@ const Login = props => {
   }
 
   const onSuccessfulLogin = jwtToken => {
-    const {history} = props
     Cookies.set('jwt_token', jwtToken, {expires: 1})
-    history.replace('/')
+    navigation('/')
   }
 
   const onFailedLogin = errorMessage => {
@@ -48,7 +47,7 @@ const Login = props => {
   }
 
   if (Cookies.get('jwt_token')) {
-    return <Redirect to="/" />
+    navigation('/')
   }
 
   return (

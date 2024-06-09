@@ -1,5 +1,5 @@
 import {useContext} from 'react'
-import {Link, withRouter} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {AiOutlineShoppingCart} from 'react-icons/ai'
 import Cookies from 'js-cookie'
 
@@ -9,11 +9,10 @@ import './index.css'
 
 const Header = props => {
   const {cartList, restaurantName} = useContext(CartContext)
-
+  const navigation = useNavigate()
   const onLogout = () => {
-    const {history} = props
     Cookies.remove('jwt_token')
-    history.replace('/login')
+    navigation('/login')
   }
 
   const renderCartIcon = () => (
@@ -51,4 +50,4 @@ const Header = props => {
   )
 }
 
-export default withRouter(Header)
+export default Header

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Switch, Route, Redirect} from 'react-router-dom'
+import {Routes, Navigate, Route} from 'react-router-dom'
 
 import Home from './components/Home'
 import Login from './components/Login'
@@ -15,7 +15,6 @@ import './App.css'
 const App = () => {
   const [cartList, setCartList] = useState([])
   const [restaurantName, setRestaurantName] = useState('')
-
   const addCartItem = dish => {
     const isAlreadyExists = cartList.find(item => item.dishId === dish.dishId)
 
@@ -71,13 +70,16 @@ const App = () => {
         setRestaurantName,
       }}
     >
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <ProtectedRoute exact path="/" component={Home} />
-        <ProtectedRoute exact path="/cart" component={Cart} />
-        <Route exact path="/not-found" component={NotFound} />
-        <Redirect to="/not-found" />
-      </Switch>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<ProtectedRoute element={Home} />} />
+        <Route path="/cart" element={<ProtectedRoute element={Cart} />} />
+        <Route
+          path="/not-found"
+          element={<ProtectedRoute element={NotFound} />}
+        />
+        <Navigate path="/not-found" />
+      </Routes>
     </CartContext.Provider>
   )
 }

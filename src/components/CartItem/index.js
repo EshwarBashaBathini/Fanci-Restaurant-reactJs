@@ -6,19 +6,10 @@ import CartContext from '../../context/CartContext'
 import './index.css'
 
 const CartItem = ({cartItemDetails}) => {
-  const {
-    dishId,
-    dishName,
-    dishImage,
-    quantity,
-    dishCurrency,
-    dishPrice,
-  } = cartItemDetails
-  const {
-    incrementCartItemQuantity,
-    decrementCartItemQuantity,
-    removeCartItem,
-  } = useContext(CartContext)
+  const {dishId, dishName, dishImage, quantity, dishCurrency, dishPrice} =
+    cartItemDetails
+  const {incrementCartItemQuantity, decrementCartItemQuantity, removeCartItem} =
+    useContext(CartContext)
 
   const onIncreaseQty = () => incrementCartItemQuantity(dishId)
 
